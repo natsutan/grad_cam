@@ -1,3 +1,4 @@
 data
 models/save
 .idea
+models/vgg16_transfer/
