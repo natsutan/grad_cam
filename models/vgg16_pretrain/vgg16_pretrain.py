@@ -1,4 +1,3 @@
-
 from tensorflow.keras.applications.vgg16 import VGG16
 save_file='save/vgg16_pretrain.h5'
 
