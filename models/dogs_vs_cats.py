@@ -5,7 +5,8 @@ from argparse import ArgumentParser
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from vgg16_transfer.vgg16_transfer import transfer_model
-
+import tensorflow.keras.callbacks
+import tensorflow.keras.backend
 
 # 動作確認用
 EPOCH = 1
@@ -15,8 +16,10 @@ train_dir = 'D:/data/dog_and_cat_small/train'
 validation_dir = 'D:/data/dog_and_cat_small/validation'
 
 save_path = 'save'
-save_file = ""
-pickle_file = ""
+save_file = ''
+tensorboard_path = 'log_'
+log_dir = ''
+pickle_file = ''
 
 
 def get_option():
@@ -27,12 +30,14 @@ def get_option():
 
 
 def select_model(model_name):
-    global save_file, pickle_file
+    global save_file, pickle_file, log_dir
     if model_name == 'vgg16_transfer':
         if USE_TPU:
+            log_dir = os.path.join(tensorboard_path, 'vgg16_tr_tpu_log')
             pickle_file = os.path.join(save_path, 'vgg16_transfer_tpu.pickle')
             save_file = os.path.join(save_path, 'vgg16_transfer_tpu.h5')
         else:
+            log_dir = os.path.join(tensorboard_path, 'vgg16_tr_log')
             pickle_file = os.path.join(save_path, 'vgg16_transfer.pickle')
             save_file = os.path.join(save_path, 'vgg16_transfer.h5')
 
@@ -68,6 +73,9 @@ def main():
 
     model.compile(loss='binary_crossentropy', optimizer=tf.train.RMSPropOptimizer(1e-4), metrics=['acc'])
 
+    tb_cb = tf.keras.callbacks.TensorBoard(log_dir=log_dir)
+    cbks = [tb_cb]
+
     if USE_TPU:
         tpu_grpc_url = tf.contrib.cluster_resolver.TPUClusterResolver(tpu=[os.environ['TPU_NAME']])
         strategy = tf.contrib.tpu.TPUDistributionStrategy(tpu_grpc_url)
@@ -76,12 +84,16 @@ def main():
             strategy=strategy
         )
         history = tpu_model.fit_generator(train_generator, steps_per_epoch=100, epochs=50,
-                              validation_data=validation_generator, validation_steps=50)
+                                          validation_data=validation_generator, validation_steps=50,
+                                          callbacks=cbks,
+                                          )
 
         tpu_model.save(save_file)
     else:
         history = model.fit_generator(train_generator, steps_per_epoch=100, epochs=30,
-                                      validation_data=validation_generator, validation_steps=50)
+                                      validation_data=validation_generator, validation_steps=50,
+                                      callbacks=cbks
+                                      )
         model.save(save_file)
 
     with open(pickle_file, mode='wb') as fp:
