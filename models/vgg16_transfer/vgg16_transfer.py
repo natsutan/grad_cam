@@ -3,9 +3,14 @@ from tensorflow.keras import layers
 from tensorflow.keras.applications.vgg16 import VGG16
 
 
-def transfer_model():
-    conv_base = VGG16(weights='imagenet', include_top=False, input_shape=(150, 150, 3))
+def transfer_model(batch=None):
     model = models.Sequential()
+    if batch is None:
+        conv_base = VGG16(weights='imagenet', include_top=False, input_shape=(150, 150, 3))
+    else:
+        input_tensor = layers.Input(batch_shape=(64, 150, 150, 3))
+        conv_base = VGG16(weights='imagenet', include_top=False, input_tensor=input_tensor)
+
     model.add(conv_base)
     model.add(layers.Flatten())
     model.add(layers.Dense(256, activation='relu'))

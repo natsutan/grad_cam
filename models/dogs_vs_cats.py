@@ -17,7 +17,7 @@ validation_dir = 'D:/data/dog_and_cat_small/validation'
 
 save_path = 'save'
 save_file = ''
-tensorboard_path = 'log_'
+tensorboard_path = 'log'
 log_dir = ''
 pickle_file = ''
 
@@ -41,16 +41,18 @@ def select_model(model_name):
             pickle_file = os.path.join(save_path, 'vgg16_transfer.pickle')
             save_file = os.path.join(save_path, 'vgg16_transfer.h5')
 
-        return transfer_model()
+        return transfer_model(batch=64)
     else:
         print("error model name = ", model_name)
         os.sys.exit(1)
 
 
 def main():
+    global EPOCH
     args = get_option()
     print("model = ", args.model)
-    print("epoch = ", args.epoch)
+    EPOCH = args.epoch
+    print("epoch = ", EPOCH)
     model = select_model(args.model)
     model.summary()
 
@@ -60,14 +62,14 @@ def main():
     train_generator = train_datagen.flow_from_directory(
         train_dir,
         target_size=(150, 150),
-        batch_size=20,
+        batch_size=64,
         class_mode='binary'
     )
 
     validation_generator = test_datagen.flow_from_directory(
         validation_dir,
         target_size=(150, 150),
-        batch_size=20,
+        batch_size=64,
         class_mode='binary'
     )
 
