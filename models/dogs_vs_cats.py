@@ -26,6 +26,8 @@ def get_option():
     arg_parser = ArgumentParser()
     arg_parser.add_argument('-m', '--model', help='model: vgg16_transfer')
     arg_parser.add_argument('-e', '--epoch', type=int, default=EPOCH, help='epoch number')
+    arg_parser.add_argument('-t', '--tpu', default=EPOCH, help='use tpu')
+
     return arg_parser.parse_args()
 
 
@@ -48,11 +50,17 @@ def select_model(model_name):
 
 
 def main():
-    global EPOCH
+    global EPOCH, USE_TPU
     args = get_option()
+
     print("model = ", args.model)
     EPOCH = args.epoch
     print("epoch = ", EPOCH)
+
+    if args.tpu == 'true':
+        USE_TPU = True
+        print("USE TPU")
+
     model = select_model(args.model)
     model.summary()
 
