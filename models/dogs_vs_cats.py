@@ -12,8 +12,12 @@ import tensorflow.keras.backend
 EPOCH = 1
 USE_TPU = False
 
-train_dir = 'D:/data/dog_and_cat_small/train'
-validation_dir = 'D:/data/dog_and_cat_small/validation'
+#train_dir = 'D:/data/dog_and_cat_small/train'
+#validation_dir = 'D:/data/dog_and_cat_small/validation'
+
+train_dir = '/home/natsutan0/myproj/grad_cam/data/dog_and_cat/train'
+validation_dir = '/home/natsutan0/myproj/grad_cam/data/dog_and_cat/validation'
+
 
 save_path = 'save'
 save_file = ''
