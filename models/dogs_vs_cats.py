@@ -64,7 +64,7 @@ def select_model(model_name):
         save_file = os.path.join(save_path, 'cnn3.h5')
 
         return cnn3_model()
-        elif model_name == 'cnn4':
+    elif model_name == 'cnn4':
         log_dir = os.path.join(tensorboard_path, 'cnn4')
         pickle_file = os.path.join(save_path, 'cnn4.pickle')
         save_file = os.path.join(save_path, 'cnn4.h5')
