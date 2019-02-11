@@ -4,3 +4,6 @@ models/save
 models/vgg16_transfer/
 models/log/
 models/vgg16_ft/__pycache__/
+models/cnn3/__pycache__/
+models/cnn4/__pycache__/
+models/cnn5/__pycache__/

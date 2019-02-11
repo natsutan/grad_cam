@@ -6,6 +6,9 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from vgg16_transfer.vgg16_transfer import transfer_model
 from vgg16_ft.vgg16_fulltrain import transfer_model_ft
+from cnn3.cnn3 import cnn3_model
+from cnn4.cnn4 import cnn4_model
+from cnn5.cnn5 import cnn5_model
 import tensorflow.keras.callbacks
 import tensorflow.keras.backend
 
@@ -55,6 +58,24 @@ def select_model(model_name):
         save_file = os.path.join(save_path, 'vgg16_ft.h5')
 
         return transfer_model_ft(batch=64)
+    elif model_name == 'cnn3':
+        log_dir = os.path.join(tensorboard_path, 'cnn3')
+        pickle_file = os.path.join(save_path, 'cnn3.pickle')
+        save_file = os.path.join(save_path, 'cnn3.h5')
+
+        return cnn3_model()
+        elif model_name == 'cnn4':
+        log_dir = os.path.join(tensorboard_path, 'cnn4')
+        pickle_file = os.path.join(save_path, 'cnn4.pickle')
+        save_file = os.path.join(save_path, 'cnn4.h5')
+
+        return cnn4_model()
+    elif model_name == 'cnn5':
+        log_dir = os.path.join(tensorboard_path, 'cnn5')
+        pickle_file = os.path.join(save_path, 'cnn5.pickle')
+        save_file = os.path.join(save_path, 'cnn5.h5')
+
+        return cnn5_model()
     else:
         print("error model name = ", model_name)
         os.sys.exit(1)
