@@ -3,3 +3,4 @@ models/save
 .idea
 models/vgg16_transfer/
 models/log/
+models/vgg16_ft/__pycache__/

@@ -5,6 +5,7 @@ from argparse import ArgumentParser
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from vgg16_transfer.vgg16_transfer import transfer_model
+from vgg16_ft.vgg16_fulltrain import transfer_model_ft
 import tensorflow.keras.callbacks
 import tensorflow.keras.backend
 
@@ -12,11 +13,11 @@ import tensorflow.keras.backend
 EPOCH = 1
 USE_TPU = False
 
-#train_dir = 'D:/data/dog_and_cat_small/train'
-#validation_dir = 'D:/data/dog_and_cat_small/validation'
+train_dir = 'D:/data/dog_and_cat_small/train'
+validation_dir = 'D:/data/dog_and_cat_small/validation'
 
-train_dir = '/home/natsutan0/myproj/grad_cam/data/dog_and_cat/train'
-validation_dir = '/home/natsutan0/myproj/grad_cam/data/dog_and_cat/validation'
+#train_dir = '/home/natsutan0/myproj/grad_cam/data/dog_and_cat/train'
+#validation_dir = '/home/natsutan0/myproj/grad_cam/data/dog_and_cat/validation'
 
 
 save_path = 'save'
@@ -48,6 +49,12 @@ def select_model(model_name):
             save_file = os.path.join(save_path, 'vgg16_transfer.h5')
 
         return transfer_model(batch=64)
+    elif model_name == 'vgg16':
+        log_dir = os.path.join(tensorboard_path, 'vgg16_ft_log')
+        pickle_file = os.path.join(save_path, 'vgg16_ft.pickle')
+        save_file = os.path.join(save_path, 'vgg16_ft.h5')
+
+        return transfer_model_ft(batch=64)
     else:
         print("error model name = ", model_name)
         os.sys.exit(1)
@@ -104,7 +111,7 @@ def main():
 
         tpu_model.save(save_file)
     else:
-        history = model.fit_generator(train_generator, steps_per_epoch=100, epochs=30,
+        history = model.fit_generator(train_generator, steps_per_epoch=100, epochs=EPOCH,
                                       validation_data=validation_generator, validation_steps=50,
                                       callbacks=cbks
                                       )
