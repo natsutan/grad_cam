@@ -1,0 +1,341 @@
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+input_1 (InputLayer)         (None, 150, 150, 3)       0
+_________________________________________________________________
+block1_conv1 (Conv2D)        (None, 150, 150, 64)      1792
+_________________________________________________________________
+block1_conv2 (Conv2D)        (None, 150, 150, 64)      36928
+_________________________________________________________________
+block1_pool (MaxPooling2D)   (None, 75, 75, 64)        0
+_________________________________________________________________
+block2_conv1 (Conv2D)        (None, 75, 75, 128)       73856
+_________________________________________________________________
+block2_conv2 (Conv2D)        (None, 75, 75, 128)       147584
+_________________________________________________________________
+block2_pool (MaxPooling2D)   (None, 37, 37, 128)       0
+_________________________________________________________________
+block3_conv1 (Conv2D)        (None, 37, 37, 256)       295168
+_________________________________________________________________
+block3_conv2 (Conv2D)        (None, 37, 37, 256)       590080
+_________________________________________________________________
+block3_conv3 (Conv2D)        (None, 37, 37, 256)       590080
+_________________________________________________________________
+block3_pool (MaxPooling2D)   (None, 18, 18, 256)       0
+_________________________________________________________________
+block4_conv1 (Conv2D)        (None, 18, 18, 512)       1180160
+_________________________________________________________________
+block4_conv2 (Conv2D)        (None, 18, 18, 512)       2359808
+_________________________________________________________________
+block4_conv3 (Conv2D)        (None, 18, 18, 512)       2359808
+_________________________________________________________________
+block4_pool (MaxPooling2D)   (None, 9, 9, 512)         0
+_________________________________________________________________
+block5_conv1 (Conv2D)        (None, 9, 9, 512)         2359808
+_________________________________________________________________
+block5_conv2 (Conv2D)        (None, 9, 9, 512)         2359808
+_________________________________________________________________
+block5_conv3 (Conv2D)        (None, 9, 9, 512)         2359808
+_________________________________________________________________
+block5_pool (MaxPooling2D)   (None, 4, 4, 512)         0
+=================================================================
+C:\Anaconda3\python.exe C:/home/myproj/grad_cam/heatmap/heatmap.py
+C:\Anaconda3\lib\site-packages\h5py\__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+2019-02-17 20:20:31.551982: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2
+load model  ../models/save/fix\vgg16_transfer.h5
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+vgg16 (Model)                (None, 4, 4, 512)         14714688  
+_________________________________________________________________
+flatten (Flatten)            (None, 8192)              0         
+_________________________________________________________________
+dense (Dense)                (None, 256)               2097408   
+_________________________________________________________________
+dense_1 (Dense)              (None, 1)                 257       
+=================================================================
+Total params: 16,812,353
+Trainable params: 16,812,353
+Non-trainable params: 0
+_________________________________________________________________
+image\wiki_dog1.jpg
+WARNING:tensorflow:No training configuration found in save file: the model was *not* compiled. Compile it manually.
+Predicted: 0.9998282
+(?, 1)
+max =  0.4667561
+image\wiki_dog2.jpg
+Predicted: 0.99918514
+(?, 1)
+max =  0.30937552
+image\wiki_dog3.jpg
+Predicted: 0.9999801
+(?, 1)
+max =  0.36885247
+image\wiki_dog4.jpg
+Predicted: 1.0
+(?, 1)
+max =  1.175857
+image\wiki_dog5.jpg
+Predicted: 0.99999976
+(?, 1)
+max =  0.6474309
+load model  ../models/save/fix\vgg16_ft.h5
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+vgg16 (Model)                (None, 4, 4, 512)         14714688  
+_________________________________________________________________
+flatten (Flatten)            (None, 8192)              0         
+_________________________________________________________________
+dense (Dense)                (None, 256)               2097408   
+_________________________________________________________________
+dense_1 (Dense)              (None, 1)                 257       
+=================================================================
+Total params: 16,812,353
+Trainable params: 16,812,353
+Non-trainable params: 0
+_________________________________________________________________
+image\wiki_dog1.jpg
+WARNING:tensorflow:No training configuration found in save file: the model was *not* compiled. Compile it manually.
+Predicted: 0.999485
+(?, 1)
+max =  0.24409878
+image\wiki_dog2.jpg
+Predicted: 0.9958126
+(?, 1)
+max =  0.21323772
+image\wiki_dog3.jpg
+Predicted: 0.99993896
+(?, 1)
+max =  0.30204317
+image\wiki_dog4.jpg
+Predicted: 1.0
+(?, 1)
+max =  2.8790743
+image\wiki_dog5.jpg
+Predicted: 1.0
+(?, 1)
+max =  1.0557436
+load model  ../models/save/fix\cnn5.h5
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              (None, 148, 148, 32)      896       
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 74, 74, 32)        0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 72, 72, 64)        18496     
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 36, 36, 64)        0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 34, 34, 128)       73856     
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 (None, 17, 17, 128)       0         
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 15, 15, 256)       295168    
+_________________________________________________________________
+max_pooling2d_3 (MaxPooling2 (None, 7, 7, 256)         0         
+_________________________________________________________________
+conv2d_4 (Conv2D)            (None, 5, 5, 256)         590080    
+_________________________________________________________________
+flatten (Flatten)            (None, 6400)              0         
+_________________________________________________________________
+dense (Dense)                (None, 512)               3277312   
+_________________________________________________________________
+dense_1 (Dense)              (None, 1)                 513       
+=================================================================
+Total params: 4,256,321
+Trainable params: 4,256,321
+Non-trainable params: 0
+_________________________________________________________________
+image\wiki_dog1.jpg
+WARNING:tensorflow:No training configuration found in save file: the model was *not* compiled. Compile it manually.
+Predicted: 0.9801118
+(?, 1)
+last layer =  conv2d_4  num =  256
+max =  0.020757781
+image\wiki_dog2.jpg
+Predicted: 0.9030128
+(?, 1)
+last layer =  conv2d_4  num =  256
+max =  0.016610354
+image\wiki_dog3.jpg
+Predicted: 0.994145
+(?, 1)
+last layer =  conv2d_4  num =  256
+max =  0.020128163
+image\wiki_dog4.jpg
+Predicted: 0.996376
+(?, 1)
+last layer =  conv2d_4  num =  256
+max =  0.022028074
+image\wiki_dog5.jpg
+Predicted: 0.96783864
+(?, 1)
+last layer =  conv2d_4  num =  256
+max =  0.015800256
+WARNING:tensorflow:No training configuration found in save file: the model was *not* compiled. Compile it manually.
+load model  ../models/save/fix\cnn5_v2.h5
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              (None, 148, 148, 32)      896       
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 146, 146, 64)      18496     
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 73, 73, 64)        0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 71, 71, 128)       73856     
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 35, 35, 128)       0         
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 33, 33, 256)       295168    
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 (None, 16, 16, 256)       0         
+_________________________________________________________________
+conv2d_4 (Conv2D)            (None, 14, 14, 256)       590080    
+_________________________________________________________________
+flatten (Flatten)            (None, 50176)             0         
+_________________________________________________________________
+dense (Dense)                (None, 512)               25690624  
+_________________________________________________________________
+dense_1 (Dense)              (None, 1)                 513       
+=================================================================
+Total params: 26,669,633
+Trainable params: 26,669,633
+Non-trainable params: 0
+_________________________________________________________________
+image\wiki_dog1.jpg
+Predicted: 0.98612773
+(?, 1)
+last layer =  conv2d_4  num =  256
+max =  0.014279885
+image\wiki_dog2.jpg
+Predicted: 0.8608323
+(?, 1)
+last layer =  conv2d_4  num =  256
+max =  0.008561932
+image\wiki_dog3.jpg
+Predicted: 0.98491675
+(?, 1)
+last layer =  conv2d_4  num =  256
+max =  0.009354524
+image\wiki_dog4.jpg
+Predicted: 0.9983462
+(?, 1)
+last layer =  conv2d_4  num =  256
+max =  0.009958278
+image\wiki_dog5.jpg
+Predicted: 0.97040075
+(?, 1)
+last layer =  conv2d_4  num =  256
+max =  0.008193307
+WARNING:tensorflow:No training configuration found in save file: the model was *not* compiled. Compile it manually.
+load model  ../models/save/fix\cnn4.h5
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              (None, 148, 148, 32)      896       
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 74, 74, 32)        0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 72, 72, 64)        18496     
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 36, 36, 64)        0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 34, 34, 128)       73856     
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 (None, 17, 17, 128)       0         
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 15, 15, 256)       295168    
+_________________________________________________________________
+flatten (Flatten)            (None, 57600)             0         
+_________________________________________________________________
+dense (Dense)                (None, 512)               29491712  
+_________________________________________________________________
+dense_1 (Dense)              (None, 1)                 513       
+=================================================================
+Total params: 29,880,641
+Trainable params: 29,880,641
+Non-trainable params: 0
+_________________________________________________________________
+image\wiki_dog1.jpg
+Predicted: 0.98951274
+(?, 1)
+last layer =  conv2d_3  num =  256
+max =  0.010513171
+image\wiki_dog2.jpg
+Predicted: 0.95185417
+(?, 1)
+last layer =  conv2d_3  num =  256
+max =  0.005837599
+image\wiki_dog3.jpg
+Predicted: 0.982268
+(?, 1)
+last layer =  conv2d_3  num =  256
+max =  0.008640977
+image\wiki_dog4.jpg
+Predicted: 0.99877185
+(?, 1)
+last layer =  conv2d_3  num =  256
+max =  0.010782809
+image\wiki_dog5.jpg
+Predicted: 0.988668
+(?, 1)
+last layer =  conv2d_3  num =  256
+max =  0.008861497
+2019-02-17 20:20:49.275854: W tensorflow/core/framework/allocator.cc:113] Allocation of 303038464 exceeds 10% of system memory.
+2019-02-17 20:20:50.265543: W tensorflow/core/framework/allocator.cc:113] Allocation of 303038464 exceeds 10% of system memory.
+WARNING:tensorflow:No training configuration found in save file: the model was *not* compiled. Compile it manually.
+load model  ../models/save/fix\cnn3.h5
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              (None, 148, 148, 32)      896       
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 74, 74, 32)        0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 72, 72, 64)        18496     
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 36, 36, 64)        0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 34, 34, 128)       73856     
+_________________________________________________________________
+flatten (Flatten)            (None, 147968)            0         
+_________________________________________________________________
+dense (Dense)                (None, 512)               75760128  
+_________________________________________________________________
+dense_1 (Dense)              (None, 1)                 513       
+=================================================================
+Total params: 75,853,889
+Trainable params: 75,853,889
+Non-trainable params: 0
+_________________________________________________________________
+image\wiki_dog1.jpg
+Predicted: 0.99617565
+(?, 1)
+last layer =  conv2d_2  num =  128
+max =  0.016129602
+image\wiki_dog2.jpg
+Predicted: 0.98229927
+(?, 1)
+last layer =  conv2d_2  num =  128
+max =  0.008179788
+image\wiki_dog3.jpg
+Predicted: 0.98373914
+(?, 1)
+last layer =  conv2d_2  num =  128
+max =  0.009407189
+image\wiki_dog4.jpg
+Predicted: 0.9978321
+(?, 1)
+last layer =  conv2d_2  num =  128
+max =  0.010178419
+image\wiki_dog5.jpg
+Predicted: 0.9800054
+(?, 1)
+last layer =  conv2d_2  num =  128
+max =  0.013305702
+
+Process finished with exit code 0

@@ -7,3 +7,5 @@ models/vgg16_ft/__pycache__/
 models/cnn3/__pycache__/
 models/cnn4/__pycache__/
 models/cnn5/__pycache__/
+heatmap/output/
+heatmap/output_vgg16/
