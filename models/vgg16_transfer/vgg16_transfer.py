@@ -11,6 +11,7 @@ def transfer_model(batch=None):
         input_tensor = layers.Input(batch_shape=(64, 150, 150, 3))
         conv_base = VGG16(weights='imagenet', include_top=False, input_tensor=input_tensor)
 
+    conv_base.summary()
     model.add(conv_base)
     model.add(layers.Flatten())
     model.add(layers.Dense(256, activation='relu'))

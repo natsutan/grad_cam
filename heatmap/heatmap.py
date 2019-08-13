@@ -14,9 +14,10 @@ output_dir = 'output'
 image_size = 150
 
 #images = ['wiki_cat1.jpg', 'wiki_cat2.jpg', 'wiki_cat3.jpg', 'wiki_cat4.jpg', 'wiki_cat5.jpg']
-images = ['wiki_dog1.jpg', 'wiki_dog2.jpg', 'wiki_dog3.jpg', 'wiki_dog4.jpg', 'wiki_dog5.jpg']
-model_names = ['vgg16_transfer', 'vgg16', 'cnn5', 'cnn5_v2', 'cnn4', 'cnn3']
-#model_names = ['vgg16_transfer', 'vgg16']
+# images = ['wiki_dog1.jpg', 'wiki_dog2.jpg', 'wiki_dog3.jpg', 'wiki_dog4.jpg', 'wiki_dog5.jpg']
+images = ['wiki_dog5.jpg', ]
+#model_names = ['vgg16_transfer', 'vgg16', 'cnn5', 'cnn5_v2', 'cnn4', 'cnn3']
+model_names = ['vgg16_transfer',]
 #model_names = ['cnn3', 'cnn4', 'cnn5']
 
 model_tbl = {'vgg16_transfer': 'vgg16_transfer',
@@ -36,6 +37,7 @@ last_layer_tbl = {'cnn5': ('conv2d_4', 256),
 def load_model(name):
     fpath = os.path.join(model_dir, model_tbl[name] + '.h5')
     model = tf.keras.models.load_model(fpath)
+    model.summary()
     print('load model ', fpath)
     return model
 
@@ -88,14 +90,18 @@ for model_name in model_names:
         heatmap = np.mean(conv_layer_value, axis=-1)
         heetmap = np.maximum(heatmap, 0)
         print("max = ", np.max(heatmap))
+        print("shape = ", heatmap.shape)
         heatmap /= np.max(heatmap)
+
+        print(model_name + image_name)
+        print(heatmap)
 
         img = cv2.imread(img_path)
         heatmap = cv2.resize(heatmap, (img.shape[1], img.shape[0]))
         heatmap = np.uint8(255 * heatmap)
         heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
 
-        hm_name =  model_name + image_name
+        hm_name = model_name + image_name
 
         cv2.imwrite(os.path.join(output_dir, 'hm_' + hm_name), heatmap)
         superimposed_img = heatmap * 0.3 + img

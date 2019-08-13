@@ -88,6 +88,8 @@ for model_name in model_names:
         for i in range(last_layer_num):
             conv_layer_value[:, :, 1] *= pooled_grads_value[i]
 
+
+
         heatmap = np.mean(conv_layer_value, axis=-1)
         heetmap = np.maximum(heatmap, 0)
         print("max = ", np.max(heatmap))
